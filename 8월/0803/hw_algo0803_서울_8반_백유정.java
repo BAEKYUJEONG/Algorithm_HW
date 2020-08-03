@@ -22,9 +22,11 @@ public class hw_algo0803_서울_8반_백유정 {
 					if(sum<=M && sum>=max) {
 						max = sum;
 					}
-					max = 0;
 				}
 			}
+            
+            if(max==0)
+				max = -1;
 			
 			System.out.println("#"+tc+" "+max);
 		}
