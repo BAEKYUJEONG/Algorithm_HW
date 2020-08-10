@@ -88,7 +88,7 @@ public class ProductMgr {
 	public int searchTotalPrice() {
 		int total = 0;
 		for(int i=0; i<index; i++) {
-			total += products[i].getPrice();
+			total += products[i].getPrice()*products[i].getStock();
 		}
 		return total;
 	}
