@@ -28,7 +28,7 @@ public class ProductTest {
 				 Product product = null;
 				 if(kind==1) {
 					 System.out.print("inch : "); int inch = sc.nextInt();
-					 System.out.print("diplay : "); String display = sc.next();
+					 System.out.print("display : "); String display = sc.next();
 					 product = new TV(num, name, price, stock, inch, display);
 				 }else if(kind==2) {
 					 System.out.print("capacity : "); int capacity = sc.nextInt();
