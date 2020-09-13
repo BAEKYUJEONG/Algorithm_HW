@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로또프로그램</title>
+<style type="text/css">
+    div{
+        background: skyblue;
+        width: 500px;
+        height: 70px;
+        padding: 2em;
+        text-align: center;
+    }
+
+    .number{
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        color: black;
+        background: yellow;
+        margin-right: 1em;
+        text-align: center;
+        line-height: 40px;
+        font-size: 120%;
+        font-weight: bold;
+    }
+</style>
+
+<script type="text/javascript">
+    var numbers;
+    var count = 0;
+    var intervalId;
+
+    function startGame(){
+        numbers = selectNumber();
+        intervalId = setInterval(displayNumber, 1000);
+    }
+
+	function selectNumber(){
+		var numbers = new Array(6);
+		var flags = new Array(46);
+		for(var i = 0; i < flags.length; ++i){
+			flags[i] = false;
+		}
+		
+		for(var i = 0; i < numbers.length; ++i){
+			var number;
+			do{
+				number = Math.floor(Math.random() * 45) + 1;
+			}while(flags[number] == true);
+			
+			numbers[i] = number;
+			flags[number] = true;
+		}
+		
+		numbers.sort(function(left, right){
+			return left-right;
+		});
+		
+		return numbers;
+	}
+	
+	function displayNumber(){
+	/* result 영역에  로또번호를 카운트를 증가하면서 출력한다..
+		   이때 count가 6이 되면 setInterval()을 멈추도록 한다
+	*/
+		if(count == 6){
+			clearInterval(intervalID);
+			return;
+		}
+		
+		document.getElementById("result").innerHTML += `<num class="number">${numbers[count]}</num>`;
+		count++;
+	}
+	
+    window.onload = startGame;
+</script>
+</head>
+<body>
+    <h3>대박 기원!</h3>
+    <div id="result"></div>
+</body>
+</html>
