@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>SSAFY</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container" align="center">
+		<div class="col-lg-8" align="right">
+			<strong>싸피</strong>님 환영합니다.
+			<a href="#">로그아웃</a>
+		</div>
+	  	<div class="col-lg-8" align="center">
+	  		<h4>SSAFY 게시판</h4>
+	  		<form id="searchform" method="get" class="form-inline" action="">
+		  		<input type="hidden" name="act" id="act" value="list">
+		  		<input type="hidden" name="pg" id="pg" value="1">
+		  		<table class="table table-borderless">
+	  				<tr>
+	  					<td align="left"><button type="button" id="mvWriteBtn" class="btn btn-sm btn-primary">글쓰기</button></td>
+	  					<td align="right">
+		  	  				<select class="form-control" name="key" id="skey">
+			    				<option value="userid" selected="selected">아이디</option>
+							    <option value="articleno">글번호</option>
+							    <option value="subject">제목</option>
+			  				</select>
+			  				<input type="text" class="form-control" placeholder="검색어 입력." name="word" id="sword">
+			  				<button type="button" id="searchBtn" class="btn btn-secondary">검색</button>
+						</td>
+	  				</tr>
+	  			</table>
+	  		</form>
+	  		
+	  		<!-- 게시판 목록 start -->
+		  	<table class="table table-hover">
+				<colgroup>
+					<col width="80">
+					<col width="*">
+					<col width="120">
+					<col width="80">
+					<col width="120">
+				</colgroup>
+				<thead>
+					<tr>
+					    <th class="text-center">글번호</th>
+					    <th class="text-center">제목</th>
+					    <th class="text-center">작성자</th>
+					    <th class="text-center">조회수</th>
+					    <th class="text-center">작성일</th>
+					</tr>
+				</thead>
+				<tbody class="article_list">
+				<!-- 게시판 목록내용(임의의내용) start -->
+
+					<tr class="viewitem" data-no="">
+					    <td class="text-center">3</td>
+						<td class="text-left">글제목3</td>
+						<td class="text-center">작성자3</td>
+						<td class="text-center">28</td>
+						<td class="text-center">2020.9.16</td>
+					</tr>
+					<tr class="viewitem" data-no="">
+					    <td class="text-center">2</td>
+						<td class="text-left">글제목2</td>
+						<td class="text-center">작성자2</td>
+						<td class="text-center">20</td>
+						<td class="text-center">2020.9.15</td>
+					</tr>
+					<tr class="viewitem" data-no="">
+					    <td class="text-center">1</td>
+						<td class="text-left">글제목1</td>
+						<td class="text-center">작성자1</td>
+						<td class="text-center">25</td>
+						<td class="text-center">2020.9.14</td>
+					</tr>
+
+				<!-- 게시판 목록내용(임의의내용) end -->
+					<tr><th colspan="5"></th></tr>
+				</tbody>
+		  	</table>
+		  	<!-- 게시판 목록 end -->
+		  	
+		  	<!-- 페이징(게시물내용 많을 시 사용) start -->
+			<table>
+		  		<tr>
+		  			<td>
+		  			<ul class="pagination">
+						<li class="page-item"><a class="page-link" href="#">최신</a></li>
+						<li class="page-item"><a class="page-link" href="#">이전</a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item active"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">다음</a></li>
+						<li class="page-item"><a class="page-link" href="#">마지막</a></li>
+					</ul>
+		  			</td>
+		  		</tr>
+		  	</table>
+		  	<!-- 페이징(게시물내용 많을 시 사용) end -->
+		</div>
+	</div>
+
+</body>
+</html>

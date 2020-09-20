@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>SSAFY</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container" align="center">
+		<div class="col-lg-8" align="right">
+			<strong>싸피</strong>님 환영합니다.
+			<a href="">로그아웃</a>
+		</div>
+		<div class="col-lg-8" align="center">
+			<h4>SSAFY 게시판</h4>
+			<form id="writeform" method="post" action="">
+				<div class="form-group" align="left">
+					<label for="subject">제목:</label>
+					<input type="text" class="form-control" id="subject" name="subject">
+				</div>
+				<div class="form-group" align="left">
+					<label for="content">내용:</label>
+					<textarea class="form-control" rows="15" id="content" name="content"></textarea>
+				</div>
+				<button type="button" id="writeBtn" class="btn btn-primary">글작성</button>
+				<button type="reset" class="btn btn-warning">초기화</button>
+				<button type="button" id="listBtn" class="btn btn-secondary">목록</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

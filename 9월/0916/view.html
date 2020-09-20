@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>SSAFY</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container" align="center">
+		<div class="col-lg-8" align="right">
+			<strong>싸피</strong>님 환영합니다.
+			<a href="">로그아웃</a>
+		</div>
+		<div class="col-lg-8">
+        	<div class="page-header">
+                <h4>SSAFY 게시판</h4>
+            </div>
+            <div align="left">
+	        	<button type="button" id="mvWriteBtn" class="btn btn-sm btn-primary" data-backdrop="static">새글쓰기</button>
+	           	<button type="button" id="mvModifyBtn" class="btn btn-sm btn-info" data-backdrop="static">수정</button>
+		        <button type="button" id="deleteBtn" class="btn btn-sm btn-danger" data-backdrop="static">삭제</button>
+           	</div>
+           	
+			<div style="height: 20px;"></div>
+			<!-- 글내용 start -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <colgroup>
+                        <col width="100">
+                        <col width="*">
+                        <col width="100">
+                        <col width="*">
+                        <col width="100">
+                        <col width="*">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th class="text-center">제목</th>
+                        <td class="text-left" colspan="5"><strong>3. 글제목3</strong></td>
+                    </tr>
+                    <tr>
+                    	<th class="text-center">작성자</th>
+                        <td class="text-center">작성자3</td>
+                        <th class="text-center">조회수</th>
+                        <td class="text-center">28</td>
+                        <th class="text-center">작성일</th>
+                        <td class="text-center">2020.9.16</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" colspan="6"><br/>글내용<br/><br/></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pull-right">
+		        	<button type="button" class="btn btn-xs btn-info mvNewListBtn" data-backdrop="static">최신목록</button>
+		            <button type="button" class="btn btn-xs btn-info mvListBtn" data-backdrop="static">이전목록</button>
+	        	</div>
+            </div>
+		</div>
+		<!-- 글내용 end -->
+		
+		<!-- 글내용과 댓글 사이의 위아래 세로간격조정을 위해 빈div사용  -->
+		<div style="height: 40px;"></div>
+		
+		
+		<!-- 댓글 start -->
+        <div class="col-lg-8">
+        	<form class="form-horizontal" action="#">
+            	<fieldset>
+                	<div class="row">
+                    	<div class="col col-sm-10">
+                        	<textarea id="comment" class="form-control" rows="3" placeholder="주제와 무관한 댓글, 악플은 삭제될 수 있습니다."></textarea>
+                    	</div>
+                    	<div class="col col-sm-2" style="text-align: left;">
+                    		<button type="button" id="memoWriteBtn" class="btn btn-lg btn-primary" style="height: 80px">작성</button>
+                    	</div>
+                	</div>
+            	</fieldset>
+        	</form>
+        </div>
+        <!-- 댓글 end -->
+	</div>
+
+</body>
+</html>

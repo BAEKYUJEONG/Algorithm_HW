@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Join Member</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/basic.css" />
+
+  <script>
+  $(document).ready(function(){
+	  
+	$("#mbr_addr1").click(function(){//daum address
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+ 	        	$("#mbr_addr1").val(data.address);
+	        }//oncomplete
+	    }).open();
+	});//click
+
+	$("#mbr_id").change(function(){//id check
+		$("#id_chk_res").text("");
+		$("#id_chk_res").removeClass("text-primary");
+		$("#id_chk_res").removeClass("text-danger");
+		if($("#mbr_id").val() == ''){
+			return;
+		}
+		
+		var mbr_id = $("#mbr_id").val();
+		if(mbr_id.length<6 || mbr_id.length>20){        
+			$("#id_chk_res").text(" 아이디의 형식이 잘못되었습니다. 형식:(6~20자)");
+			$("#id_chk_res").toggleClass("text-danger");
+	        $('#mbr_id').focus();
+	        return;
+		}//id 형식
+		
+		$.ajax({
+		       url:'userlist.xml',
+		       success:function(data){
+		    	     
+		          var flag=false;
+		    	  $.each($(data).find('id'), function(index, idElement){
+		    		  if($(idElement).text()==$("#mbr_id").val()){
+		    			  flag=true;
+		    		  }
+		    	  });
+		    	  if(flag){
+		    		  $("#id_chk_res").text(" 이미 존재하는 ID 입니다.");
+					  $("#id_chk_res").addClass("text-danger");
+					  $('#mbr_id').focus();
+		    	  }else{
+		    		  $("#id_chk_res").text(" 사용 가능한 ID 입니다.");
+					  $("#id_chk_res").addClass("text-primary");
+		    	  }
+		       }
+		});		
+	});//change
+	
+	$("#mbr_pwd").change(function(){
+		$("#pwd_chk_res").text("");
+		if($("#mbr_pwd").val() == ''){
+			return;
+		}
+	    if($("#mbr_pwd").val().length<8){            
+	        $("#pwd_chk_res").text(" 비밀번호의 형식이 잘못되었습니다. 형식:(8~20자)");
+	        $('#mbr_pwd').val('').focus();
+	        return;
+	    }//pwd 형식    
+	});//change
+	
+	$("#mbr_pwd_re").change(function(){
+		$("#pwd_chk_res").text("");
+		if($("#mbr_pwd_re").val() == ''){
+			return;
+		}
+		if($("#mbr_pwd_re").val() != $("#mbr_pwd").val()){
+			$("#pwd_chk_res").text(" 패스워드를 다시 확인해 주세요.");
+			$("#mbr_pwd_re").val('');
+		}
+	});//change
+	
+	$("#mbr_nm").change(function(){
+		$("#nm_chk_res").text("");
+		if($.trim($("#mbr_nm").val()) == ''){
+	        $("#nm_chk_res").text(" 이름은 필수 입력입니다. 형식:(20자 이내)");
+	        $('#mbr_nm').val('').focus();
+	        return;
+		}
+	});//change
+	
+	$("#mbr_tel").change(function(){
+		$("#tel_chk_res").text('');
+		if($("#mbr_tel").val() == ''){
+			return;
+		}
+		var numStd = /^[0-9]+$/;
+		if($("#mbr_tel").val().match(numStd)){
+			//alert("ok");
+		}else{
+			$("#tel_chk_res").text(" 숫자만 입력 가능한 필드 입니다. 형식:(01055557777, 6~20자)");
+			$("#mbr_tel").val('');
+			return;
+		}
+	});//change
+	
+	$("#mbr_email").change(function(){
+		$("#email_chk_res").text('');
+		if($("#mbr_email").val() == ''){
+			return;
+		}
+	    if(!/^(?=.*[a-zA-Z0-9])(?=.*[@.]).{6,20}$/.test($("#mbr_email").val())){            
+	        $("#email_chk_res").text(" 이메일의 형식이 잘못되었습니다. 형식:(example@examle.com, 8~20자)");
+	        $('#mbr_email').val('').focus();
+	        return;
+	    }
+	});//change
+
+	$("#join_btn").click(function() {
+		if($.trim($("#mbr_id").val()) == ''){
+			alert("ID를 입력해 주세요.");
+			return;
+		}
+		if($.trim($("#mbr_pwd").val()) == ''){
+			alert("Password를 입력해 주세요.");
+			return;
+		}
+		if($.trim($("#mbr_pwd_re").val()) == ''){
+			alert("Password Confirm을 입력해 주세요.");
+			return;
+		}
+		if($.trim($("#mbr_nm").val()) == ''){
+			alert("Name을 입력해 주세요.");
+			return;
+		}
+		if($.trim($("#mbr_tel").val()) == ''){
+			alert("CellPhone을 입력해 주세요.");
+			return;
+		}
+		if($.trim($("#mbr_email").val()) == ''){
+			alert("E-mail을 입력해 주세요.");
+			return;
+		}
+		if($.trim($("#mbr_addr1").val()) == ''){
+			alert("Address를 입력해 주세요.");
+			return;
+		}
+
+		$.ajax({
+		       url:'userlist.xml',
+		       success:function(data){
+		    	     
+		          var flag=false;
+		    	  $.each($(data).find('id'), function(index, idElement){
+		    		  if($(idElement).text()==$("#mbr_id").val()){
+		    			  flag=true;
+		    		  }
+		    	  });
+		    	  if(flag){
+		    		  $("#id_chk_res").text(" 이미 존재하는 ID 입니다.");
+					  $("#id_chk_res").addClass("text-danger");
+					  $('#mbr_id').focus();
+		    	  }else{
+		    		  $("#id_chk_res").text(" 사용 가능한 ID 입니다.");
+					  $("#id_chk_res").addClass("text-primary");
+		    	  }
+		       }
+		});		
+
+		});//joinButton click
+		
+		$("#modalLogInBtn").click(function() {
+			if($.trim($("#mbr_id_header").val()) == ''){
+				alert("ID를 입력해 주세요.");
+				return;
+			}
+			if($.trim($("#mbr_pwd_header").val()) == ''){
+				alert("Password를 입력해 주세요.");
+				return;
+			}
+			
+			$.ajax({
+			       url:'userlist.xml',
+			       success:function(data){
+			    	  
+			    	   
+			    	   
+			          var mbr_id='';
+			    	  var idx=-1;
+			    	  $.each($(data).find('id'), function(index, idElement){
+			    		  if($(idElement).text()== $("#mbr_id_header").val()){
+			    			  mbr_id=$(idElement).text();
+			    			  idx=index;
+			    		  }
+			    	  });
+			    	  			    	  
+			    	  
+			    	  if(mbr_id &&
+			    	        $(data).find('pwd').eq(idx).text()==$("#mbr_pwd_header").val()){
+			    		  
+							$("#spanForLogin").css("display","none");
+							$("#spanForID").text(" "+mbr_id+"님 ");
+							$("#spanForID").css("display","inline");
+							$("#spanForLogout").css("display","inline");
+			    	    
+			    	  }else{
+							alert("잘못된 ID 또는 Password 입니다.");
+			    	  }
+			       }
+			    	  
+			});				
+			
+		});//click
+		
+		$("#spanForLogout").click(function() {
+
+			$("#spanForLogin").css("display","inline");
+			$("#spanForID").text("");
+			$("#spanForID").css("display","none");
+			$("#spanForLogout").css("display","none");
+			alert("로그아웃 되었습니다.");
+         });//click		
+         
+	});//ready
+	</script>    
+</head>
+<body>
+	<div class="container">
+		<nav id="index_nav_login">
+			<ul class="m-0 p-0">
+				<li class="float-right"><a class="p-1" href="#">SignUp</a></li>
+				<li class="float-right"><a class="p-1" href="#">
+					<span id="spanForLogin" data-toggle="modal" data-target="#loginModal">Login</span>
+				</a></li>
+				<li class="float-right"><a class="p-1" href="#"><span id="spanForID" style="display: none;"></span>
+					<span id="spanForLogout" style="display: none;">Logout</span></a></li>
+			</ul>
+		</nav>
+		<header id="index_header" class="jumbotron text-center mb-1">
+			<h4>행복한 우리 집</h4> 
+		</header>
+		
+		<!-- nav start -->
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark rounded">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						동네 정보
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">APT 매매</a>
+						<a class="dropdown-item" href="#">APT 전월세</a>
+						<a class="dropdown-item" href="#">주택 매매</a>
+						<a class="dropdown-item" href="#">주택 전월세</a>
+						<a class="dropdown-item" href="#">상권 정보</a>
+						<a class="dropdown-item" href="#">환경 정보</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Notice</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">News</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Contact</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						live5
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">ID Check</a>
+						<a class="dropdown-item" href="#">회원가입</a>
+						<a class="dropdown-item" href="#">로그인</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						GuestBook
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">글쓰기</a>
+						<a class="dropdown-item" href="#">글목록</a>
+						<a class="dropdown-item" href="#">글상세</a>
+						<a class="dropdown-item" href="#">글수정</a>
+						<a class="dropdown-item" href="#">글삭제</a>
+					</div>
+				</li>
+			</ul>
+		</nav>
+		<!-- nav end -->
+		
+		
+		<!-- login modal start -->
+		<div class="modal" id="loginModal">
+			<div class="modal-dialog modal-md" style="vertical-align: middle;">
+				<div class="modal-content">
+					<!-- ModalHeader -->
+					<div class="modal-header">
+						<h4 class="modal-title">LogIn</h4>
+						<button type="button" class="close dataDismiss" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="mbr_id_header">ID:</label>
+							<input type="text" id="mbr_id_header" class="form-control" placeholder="Enter ID">
+						</div>
+						<div class="form-group">
+							<label for="mbr_pwd_header">Password:</label>
+							<input type="password" id="mbr_pwd_header" class="form-control" placeholder="Enter Password">
+						</div>
+					</div>
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" id="modalLogInBtn" class="btn btn-primary" data-dismiss="modal">LogIn</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<section>
+		<div>
+			<div class="container">
+				<div class="mt-2 mb-2">
+					<h2>Join Member</h2>
+				</div>
+			</div>
+		</div>
+		</section>
+
+		<!-- section start -->
+		<section id="index_section">
+			<div class="card col-sm-12 mt-1" style="min-height: 450px;">
+				<div class="card-body">
+
+	<form id="join_form" name="join_form" method="post">
+		<label for="mbr_id"><strong>User ID (* 20자 이내) <span id="id_chk_res"></span></strong></label>
+		<input type="text" id="mbr_id" name="mbr_id" class="form-control mb-3" placeholder="ID" maxlength="20" required="required" />
+	
+		<label for="mbr_pwd"><strong>User Password (* 20자 이내) <span id="pwd_chk_res" class="text-danger"></span></strong></label>
+		<input type="password" id="mbr_pwd" name="mbr_pwd" class="form-control mb-3" placeholder="Password" maxlength="20" required="required" />
+	
+		<label for="mbr_pwd_re"><strong>User Password Confirm (* 20자 이내)</span></strong></label>
+		<input type="password" id="mbr_pwd_re" name="mbr_pwd_re" class="form-control mb-3" placeholder="Password" maxlength="20" required="required" />
+	
+		<label for="mbr_nm"><strong>User Name (* 10자 이내) <span id="nm_chk_res" class="text-danger"></span></strong></label>
+		<input type="text" id="mbr_nm" name="mbr_nm" class="form-control mb-3" placeholder="Name" maxlength="10" required="required" />
+	
+		<label for="mbr_tel"><strong>User CellPhone (* 20자 이내) <span id="tel_chk_res" class="text-danger"></span></strong></label>
+		<input type="text" id="mbr_tel" name="mbr_tel" class="form-control mb-3" placeholder="01055557777" maxlength="20" required="required" />
+	
+		<label for="mbr_email"><strong>User E-mail (* 50자 이내) <span id="email_chk_res" class="text-danger"></span></strong></label>
+		<input type="text" id="mbr_email" name="mbr_email" class="form-control mb-3" placeholder="example@example.com" maxlength="50" required="required" />
+	
+		<label for="mbr_addr1"><strong>User Address (*)</strong></label>
+		<input type="text" id="mbr_addr1" name="mbr_addr1" class="form-control mb-3" readonly="readonly" placeholder="Click!" required="required" />
+	
+		<label for="mbr_addr2"><strong>User Address 2 (50자 이내)</strong></label>
+		<input type="text" id="mbr_addr2" name="mbr_addr2" class="form-control mb-3" placeholder="주소 상세" maxlength="50" />
+	
+		<button type="button" id="join_btn" class="btn btn-primary btn-block">JOIN IN</button>
+	</form>
+
+
+				</div>
+			</div>
+		</section>
+		<!-- section end -->
+		
+	</div>
+</body>
+</html>

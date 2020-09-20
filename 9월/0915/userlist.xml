@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+ <user>
+   <id>gildong</id>
+   <pwd>1234</pwd>
+ </user>
+ <user>
+   <id>juwon</id>
+   <pwd>2222</pwd>
+ </user>
+</users>

@@ -1,0 +1,21 @@
+@charset "UTF-8";
+#index_nav_login ul {
+	list-style-type: none;
+	overflow: hidden;
+}
+#index_nav_login ul li {
+	font-size: 1.0em;
+}
+#index_nav_login ul li a {
+	display: block;
+	color: brown;
+	text-align: center;
+	text-decoration: none;
+}
+#index_nav_login ul li a:hover {
+	color: #dfbf9f;
+}
+footer {
+	height: 150px;
+	clear: both;
+}
