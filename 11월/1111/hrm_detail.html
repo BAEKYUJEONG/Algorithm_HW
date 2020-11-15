@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        th{
+            background-color: #4d6bb3;
+            color: white;
+        }
+        th, td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h2 class="text-center">사원 정보</h2>
+        <div class="text-align">
+          <template v-for="emp in emps" v-if="emp.id == id">
+            <table class="table table-condensed w-25">
+                <colgroup>
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                </colgroup>
+                <tr>
+                    <th>사원 아이디</th>
+                    <th>사원명</th>
+                    <th>부서</th>
+                    <th>직책</th>
+                    <th>연봉</th>
+                </tr>
+                <tr>
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.deptName}}</td>
+                    <td>{{emp.title}}</td>
+                    <td>{{emp.salary}}</td>
+                </tr>
+            </table>
+            <br />
+            <div class="text-center">
+                <button class="btn btn-primary" @click="moveList">목록</button>
+              </div>
+          </template>
+        </div>
+      </div>
+
+    <script>
+
+        const params = (new URL(document.location)).searchParams;
+        const id = params.get('id');
+        new Vue({
+            el: '#app',
+            data: {
+                id : id,
+                emps: []
+            },
+            created() {
+                const board = localStorage.getItem('emp_board');
+                let newBoard = {
+                    sequence: 0,
+                    emps: []
+                };
+
+                if (board) {
+                    newBoard = JSON.parse(board);
+                } else {
+                    localStorage.setItem('emp_board', JSON.stringify(newBoard))
+                }
+
+                newBoard.emps.sort((a, b) => {
+                    return -(a.no - b.no);
+                });
+                this.emps = newBoard.emps;
+            },
+            methods: {
+                moveList() {
+                    location.href = "./hrm_list.html";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
